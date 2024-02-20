@@ -1,0 +1,137 @@
+[gd_scene load_steps=10 format=3 uid="uid://bu6rffiq1u3cn"]
+
+[ext_resource type="Texture2D" uid="uid://xxdi2jy1hubk" path="res://ball.png" id="1_3s2ls"]
+[ext_resource type="Script" path="res://Gameplay.gd" id="1_l278m"]
+[ext_resource type="Script" path="res://Pad.gd" id="2_76jhd"]
+[ext_resource type="Script" path="res://Ball.gd" id="3_wsbuj"]
+[ext_resource type="Script" path="res://CPUOpponent.gd" id="5_nxtvp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bhnrm"]
+size = Vector2(10, 80)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_er48l"]
+radius = 16.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mnpow"]
+size = Vector2(1152, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gh1df"]
+size = Vector2(128, 697)
+
+[node name="Main" type="ColorRect"]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.105882, 0.105882, 0.105882, 1)
+script = ExtResource("1_l278m")
+
+[node name="LeftPad" type="StaticBody2D" parent="."]
+position = Vector2(25, 324)
+script = ExtResource("2_76jhd")
+up_key = &"left_pad_up"
+down_key = &"left_pad_down"
+
+[node name="ColorRect" type="ColorRect" parent="LeftPad"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -40.0
+offset_right = 10.0
+offset_bottom = 40.0
+grow_vertical = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftPad"]
+position = Vector2(5, 0)
+shape = SubResource("RectangleShape2D_bhnrm")
+
+[node name="RightPad" type="StaticBody2D" parent="."]
+position = Vector2(1127, 324)
+script = ExtResource("2_76jhd")
+up_key = &"right_pad_up"
+down_key = &"right_pad_down"
+can_be_cpu = true
+
+[node name="ColorRect" type="ColorRect" parent="RightPad"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightPad"]
+position = Vector2(-5, 0)
+shape = SubResource("RectangleShape2D_bhnrm")
+
+[node name="CPU Opponent" type="Node2D" parent="RightPad"]
+script = ExtResource("5_nxtvp")
+
+[node name="Ball" type="CharacterBody2D" parent="."]
+position = Vector2(576, 326)
+scale = Vector2(0.25, 0.25)
+collision_mask = 3
+script = ExtResource("3_wsbuj")
+
+[node name="Sprite2D" type="Sprite2D" parent="Ball"]
+texture = ExtResource("1_3s2ls")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
+shape = SubResource("CircleShape2D_er48l")
+
+[node name="Borders" type="StaticBody2D" parent="."]
+collision_layer = 2
+
+[node name="Top Border" type="CollisionShape2D" parent="Borders"]
+position = Vector2(576, -5)
+shape = SubResource("RectangleShape2D_mnpow")
+
+[node name="Bottom Border" type="CollisionShape2D" parent="Borders"]
+position = Vector2(576, 653)
+shape = SubResource("RectangleShape2D_mnpow")
+
+[node name="Left Goal" type="Area2D" parent="."]
+
+[node name="Collider" type="CollisionShape2D" parent="Left Goal"]
+position = Vector2(-77, 326.5)
+shape = SubResource("RectangleShape2D_gh1df")
+
+[node name="Right Goal" type="Area2D" parent="."]
+
+[node name="Collider" type="CollisionShape2D" parent="Right Goal"]
+position = Vector2(1231, 330)
+shape = SubResource("RectangleShape2D_gh1df")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Left Score" type="Label" parent="UI"]
+offset_left = 9.0
+offset_top = 572.0
+offset_right = 79.0
+offset_bottom = 641.0
+theme_override_font_sizes/font_size = 50
+text = "0
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Right Score" type="Label" parent="UI"]
+offset_left = 1071.0
+offset_top = 572.0
+offset_right = 1141.0
+offset_bottom = 641.0
+theme_override_font_sizes/font_size = 50
+text = "0
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Game Loop" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="Left Goal" to="." method="_on_left_goal_body_entered"]
+[connection signal="body_entered" from="Right Goal" to="." method="_on_right_goal_body_entered"]
+[connection signal="timeout" from="Game Loop" to="." method="_on_timer_timeout"]

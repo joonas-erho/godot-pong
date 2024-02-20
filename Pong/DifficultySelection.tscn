@@ -1,0 +1,83 @@
+[gd_scene load_steps=2 format=3 uid="uid://t8iqoamem8tk"]
+
+[ext_resource type="Script" path="res://DifficultySelection.gd" id="1_yks8x"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yks8x")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.105882, 0.105882, 0.105882, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect"]
+layout_mode = 0
+offset_left = 423.0
+offset_top = 50.0
+offset_right = 711.0
+offset_bottom = 648.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Easy" type="Button" parent="ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Easy"
+
+[node name="Medium" type="Button" parent="ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Medium"
+
+[node name="Hard" type="Button" parent="ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Hard"
+
+[node name="Insane" type="Button" parent="ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Insane"
+
+[node name="ReturnToMenu" type="Button" parent="ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Back to Main Menu"
+
+[node name="Header" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 423.0
+offset_top = 84.0
+offset_right = 717.0
+offset_bottom = 134.0
+theme_override_font_sizes/font_size = 36
+text = "Choose Difficulty"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InfoText" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 423.0
+offset_top = 114.0
+offset_right = 717.0
+offset_bottom = 164.0
+theme_override_font_sizes/font_size = 12
+text = "This affects the speed of the CPU Paddle"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer/Easy" to="." method="_on_easy_pressed"]
+[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer/Medium" to="." method="_on_medium_pressed"]
+[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer/Hard" to="." method="_on_hard_pressed"]
+[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer/Insane" to="." method="_on_insane_pressed"]
+[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer/ReturnToMenu" to="." method="_on_return_to_menu_pressed"]

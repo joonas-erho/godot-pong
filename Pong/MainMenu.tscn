@@ -1,0 +1,75 @@
+[gd_scene load_steps=2 format=3 uid="uid://57ogshoxfqle"]
+
+[ext_resource type="Script" path="res://MainMenu.gd" id="1_flp2g"]
+
+[node name="Main Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_flp2g")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 2
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.105882, 0.105882, 0.105882, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect"]
+layout_mode = 0
+offset_left = 497.0
+offset_top = 95.0
+offset_right = 689.0
+offset_bottom = 648.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="Play SP Button" type="Button" parent="ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Play Singleplayer"
+
+[node name="Play MP Button" type="Button" parent="ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Play Multiplayer"
+
+[node name="Exit Button" type="Button" parent="ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Exit"
+
+[node name="Pong Title" type="Label" parent="ColorRect"]
+layout_mode = 2
+offset_left = 497.0
+offset_top = 135.0
+offset_right = 689.0
+offset_bottom = 158.0
+theme_override_font_sizes/font_size = 60
+text = "PONG"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 54.0
+offset_top = 475.0
+offset_right = 225.0
+offset_bottom = 602.0
+theme_override_colors/font_color = Color(0.482353, 0.482353, 0.482353, 1)
+text = "Controls:
+
+P1    W / S
+P2     ↑ / ↓ 
+Esc to Return to Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer/Play SP Button" to="." method="_on_play_sp_button_pressed"]
+[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer/Play MP Button" to="." method="_on_play_mp_button_pressed"]
+[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer/Exit Button" to="." method="_on_exit_button_pressed"]
