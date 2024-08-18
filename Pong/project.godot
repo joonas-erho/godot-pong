@@ -23,6 +23,10 @@ GlobalData="*res://GlobalData.gd"
 
 project/assembly_name="Pong"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
+
 [input]
 
 left_pad_up={
